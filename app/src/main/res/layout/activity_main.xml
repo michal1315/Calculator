@@ -27,29 +27,27 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button10"
+                android:id="@+id/clearButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.75"
+                android:layout_weight="5"
                 android:text="C" />
 
             <Button
-                android:id="@+id/button8"
+                android:id="@+id/deleteButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.75"
-                android:width="100dp"
-                android:height="100dp"
+                android:layout_weight="5"
                 android:text="DEl" />
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/dividerButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2.1"
+                android:layout_weight="6"
                 android:text="/" />
 
         </LinearLayout>
@@ -62,7 +60,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button11"
+                android:id="@+id/sevenButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -70,7 +68,7 @@
                 android:text="7" />
 
             <Button
-                android:id="@+id/button13"
+                android:id="@+id/eightButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -78,7 +76,7 @@
                 android:text="8" />
 
             <Button
-                android:id="@+id/button14"
+                android:id="@+id/nineButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -86,12 +84,12 @@
                 android:text="9" />
 
             <Button
-                android:id="@+id/button15"
+                android:id="@+id/multiButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="X" />
+                android:text="x" />
 
         </LinearLayout>
 
@@ -103,7 +101,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button16"
+                android:id="@+id/fourButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -111,7 +109,7 @@
                 android:text="4" />
 
             <Button
-                android:id="@+id/button17"
+                android:id="@+id/fiveButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -119,7 +117,7 @@
                 android:text="5" />
 
             <Button
-                android:id="@+id/button19"
+                android:id="@+id/sixButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -127,7 +125,7 @@
                 android:text="6" />
 
             <Button
-                android:id="@+id/button28"
+                android:id="@+id/subtractButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -143,7 +141,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button20"
+                android:id="@+id/oneButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -151,7 +149,7 @@
                 android:text="1" />
 
             <Button
-                android:id="@+id/button21"
+                android:id="@+id/twoButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -159,7 +157,7 @@
                 android:text="2" />
 
             <Button
-                android:id="@+id/button22"
+                android:id="@+id/threeButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -167,7 +165,7 @@
                 android:text="3" />
 
             <Button
-                android:id="@+id/button23"
+                android:id="@+id/addButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -183,7 +181,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button25"
+                android:id="@+id/zeroButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -191,15 +189,15 @@
                 android:text="0" />
 
             <Button
-                android:id="@+id/button26"
+                android:id="@+id/dotButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:text="," />
+                android:text="." />
 
             <Button
-                android:id="@+id/button27"
+                android:id="@+id/equateButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
