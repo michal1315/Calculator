@@ -3,18 +3,17 @@ package com.example.calculator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
+import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val text = "Click"
-        val duration = Toast.LENGTH_SHORT
+        val dataHandler = DataHandler()
 
-        val toast = Toast.makeText(this, text, duration) // in Activity
 
+        val calText = findViewById<TextView>(R.id.currentCal)
 
         val clearButton = findViewById<Button>(R.id.clearButton)
         val deleteButton = findViewById<Button>(R.id.deleteButton)
@@ -35,25 +34,35 @@ class MainActivity : AppCompatActivity() {
         val dotButton = findViewById<Button>(R.id.dotButton)
         val equateButton = findViewById<Button>(R.id.equateButton)
 
-        clearButton.setOnClickListener {  }
-        deleteButton.setOnClickListener {  }
-        dividerButton.setOnClickListener {  }
-        sevenButton.setOnClickListener {  }
-        eightButton.setOnClickListener {  }
-        nineButton.setOnClickListener {  }
-        multiButton.setOnClickListener {  }
-        fourButton.setOnClickListener {  }
-        fiveButton.setOnClickListener {  }
-        sixButton.setOnClickListener {  }
-        subtractButton.setOnClickListener {  }
-        oneButton.setOnClickListener {  }
-        twoButton.setOnClickListener {  }
-        threeButton.setOnClickListener {  }
-        addButton.setOnClickListener {  }
-        zeroButton.setOnClickListener {  }
-        dotButton.setOnClickListener {  }
-        equateButton.setOnClickListener {  }
+        fun addToCalText(text: String){
+            calText.text = dataHandler.addToTextView(text)
+        }
 
+        oneButton.setOnClickListener { addToCalText(oneButton.text.toString()) }
+        twoButton.setOnClickListener { addToCalText(twoButton.text.toString()) }
+        threeButton.setOnClickListener { }
+        fourButton.setOnClickListener { }
+        fiveButton.setOnClickListener { }
+        sixButton.setOnClickListener { }
+        sevenButton.setOnClickListener { }
+        eightButton.setOnClickListener { }
+        nineButton.setOnClickListener { }
+        zeroButton.setOnClickListener { }
 
+        dotButton.setOnClickListener { }
+
+        clearButton.setOnClickListener { }
+
+        deleteButton.setOnClickListener { }
+
+        dividerButton.setOnClickListener { }
+
+        multiButton.setOnClickListener { }
+
+        subtractButton.setOnClickListener { }
+
+        addButton.setOnClickListener { }
+
+        equateButton.setOnClickListener { }
     }
 }
