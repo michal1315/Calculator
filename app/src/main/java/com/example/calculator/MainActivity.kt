@@ -34,12 +34,12 @@ class MainActivity : AppCompatActivity() {
         val dotButton = findViewById<Button>(R.id.dotButton)
         val equateButton = findViewById<Button>(R.id.equateButton)
 
-        fun addToCalText(text: String){
+        fun addToCalculation(text: String){
             calText.text = dataHandler.addToTextView(text)
         }
 
-        oneButton.setOnClickListener { addToCalText(oneButton.text.toString()) }
-        twoButton.setOnClickListener { addToCalText(twoButton.text.toString()) }
+        oneButton.setOnClickListener { dataHandler.dataSplitter("1234+5678-546/67*55") }
+        twoButton.setOnClickListener { addToCalculation(twoButton.text.toString()) }
         threeButton.setOnClickListener { }
         fourButton.setOnClickListener { }
         fiveButton.setOnClickListener { }
