@@ -1,15 +1,11 @@
 package com.example.calculator
 
-import android.util.Log
+
 
 class DataHandler {
-
-    private var calculationDataString = ""
     private var calculationList: ArrayList<String> = arrayListOf()
-    fun addToTextView(textToAdd: String): String {
-        calculationDataString += textToAdd
-        return calculationDataString
-    }
+
+
 
     fun dataSplitter(data: String) {
         var index: Int = 0

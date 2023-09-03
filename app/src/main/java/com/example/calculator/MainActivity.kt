@@ -10,8 +10,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        var calculationDataString = ""
         val dataHandler = DataHandler()
-
 
         val calText = findViewById<TextView>(R.id.currentCal)
 
@@ -34,34 +34,35 @@ class MainActivity : AppCompatActivity() {
         val dotButton = findViewById<Button>(R.id.dotButton)
         val equateButton = findViewById<Button>(R.id.equateButton)
 
-        fun addToCalculation(text: String){
-            calText.text = dataHandler.addToTextView(text)
+        fun sendToCalculation(textToAdd: String) {
+            calculationDataString += textToAdd
+            calText.text = calculationDataString
         }
 
-        oneButton.setOnClickListener { dataHandler.dataSplitter("1234+5678-546/67*55") }
-        twoButton.setOnClickListener { addToCalculation(twoButton.text.toString()) }
-        threeButton.setOnClickListener { }
-        fourButton.setOnClickListener { }
-        fiveButton.setOnClickListener { }
-        sixButton.setOnClickListener { }
-        sevenButton.setOnClickListener { }
-        eightButton.setOnClickListener { }
-        nineButton.setOnClickListener { }
-        zeroButton.setOnClickListener { }
+        oneButton.setOnClickListener { sendToCalculation("1") }
+        twoButton.setOnClickListener { sendToCalculation("2") }
+        threeButton.setOnClickListener { sendToCalculation("3") }
+        fourButton.setOnClickListener { sendToCalculation("4")}
+        fiveButton.setOnClickListener { sendToCalculation("5")}
+        sixButton.setOnClickListener {sendToCalculation("6") }
+        sevenButton.setOnClickListener { sendToCalculation("7")}
+        eightButton.setOnClickListener { sendToCalculation("8")}
+        nineButton.setOnClickListener { sendToCalculation("9")}
+        zeroButton.setOnClickListener { sendToCalculation("0")}
 
-        dotButton.setOnClickListener { }
+        dotButton.setOnClickListener { sendToCalculation(".")}
 
         clearButton.setOnClickListener { }
 
         deleteButton.setOnClickListener { }
 
-        dividerButton.setOnClickListener { }
+        dividerButton.setOnClickListener { sendToCalculation("/")}
 
-        multiButton.setOnClickListener { }
+        multiButton.setOnClickListener {sendToCalculation("*") }
 
-        subtractButton.setOnClickListener { }
+        subtractButton.setOnClickListener {sendToCalculation("-") }
 
-        addButton.setOnClickListener { }
+        addButton.setOnClickListener { sendToCalculation("+")}
 
         equateButton.setOnClickListener { }
     }
