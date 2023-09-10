@@ -42,28 +42,32 @@ class MainActivity : AppCompatActivity() {
         oneButton.setOnClickListener { sendToCalculation("1") }
         twoButton.setOnClickListener { sendToCalculation("2") }
         threeButton.setOnClickListener { sendToCalculation("3") }
-        fourButton.setOnClickListener { sendToCalculation("4")}
-        fiveButton.setOnClickListener { sendToCalculation("5")}
-        sixButton.setOnClickListener {sendToCalculation("6") }
-        sevenButton.setOnClickListener { sendToCalculation("7")}
-        eightButton.setOnClickListener { sendToCalculation("8")}
-        nineButton.setOnClickListener { sendToCalculation("9")}
-        zeroButton.setOnClickListener { sendToCalculation("0")}
+        fourButton.setOnClickListener { sendToCalculation("4") }
+        fiveButton.setOnClickListener { sendToCalculation("5") }
+        sixButton.setOnClickListener { sendToCalculation("6") }
+        sevenButton.setOnClickListener { sendToCalculation("7") }
+        eightButton.setOnClickListener { sendToCalculation("8") }
+        nineButton.setOnClickListener { sendToCalculation("9") }
+        zeroButton.setOnClickListener { sendToCalculation("0") }
 
-        dotButton.setOnClickListener { sendToCalculation(".")}
+        dotButton.setOnClickListener { sendToCalculation(".") }
 
         clearButton.setOnClickListener { }
 
         deleteButton.setOnClickListener { }
 
-        dividerButton.setOnClickListener { sendToCalculation("/")}
+        dividerButton.setOnClickListener { sendToCalculation("/") }
 
-        multiButton.setOnClickListener {sendToCalculation("*") }
+        multiButton.setOnClickListener { sendToCalculation("*") }
 
-        subtractButton.setOnClickListener {sendToCalculation("-") }
+        subtractButton.setOnClickListener { sendToCalculation("-") }
 
-        addButton.setOnClickListener { sendToCalculation("+")}
+        addButton.setOnClickListener { sendToCalculation("+") }
 
-        equateButton.setOnClickListener { }
+        equateButton.setOnClickListener {
+            dataHandler.calculateResult(calculationDataString)
+            sendToCalculation("\n= ${dataHandler.result}") }
+
+
     }
 }
