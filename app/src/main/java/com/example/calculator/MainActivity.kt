@@ -59,7 +59,10 @@ class MainActivity : AppCompatActivity() {
 
         dotButton.setOnClickListener { addToCalculation(".") }
 
-        clearButton.setOnClickListener { }
+        clearButton.setOnClickListener {
+            calculationDataString = ""
+            refreshText(calculationDataString)
+        }
 
         deleteButton.setOnClickListener { }
 
