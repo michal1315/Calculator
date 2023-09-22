@@ -64,7 +64,10 @@ class MainActivity : AppCompatActivity() {
             refreshText(calculationDataString)
         }
 
-        deleteButton.setOnClickListener { }
+        deleteButton.setOnClickListener {
+            calculationDataString = calculationDataString.dropLast(1)
+            refreshText(calculationDataString)
+        }
 
         dividerButton.setOnClickListener { addToCalculation("/") }
 
