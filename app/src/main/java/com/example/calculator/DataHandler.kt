@@ -2,7 +2,6 @@ package com.example.calculator
 
 
 class DataHandler {
-    var result = 0.0
     private var calculationList: ArrayList<String> = arrayListOf()
 
     private fun dataSplitter(data: String) {
@@ -28,35 +27,45 @@ class DataHandler {
         //println(calculationList)
     }
 
-    private fun makeCalculations() {
+    private fun makeCalculations(): String {
+        var result = 0.0
         var index = 0
         while (index <= calculationList.size - 1) {
 
             when (calculationList[index]) {
                 in "-" -> {
-                   result = (calculationList[index - 1].toDouble() - calculationList[index + 1].toDouble())
+                    result =
+                        (calculationList[index - 1].toDouble() - calculationList[index + 1].toDouble())
                 }
+
                 in "+" -> {
-                    result = (calculationList[index - 1].toDouble() + calculationList[index + 1].toDouble())
+                    result =
+                        (calculationList[index - 1].toDouble() + calculationList[index + 1].toDouble())
                 }
+
                 in "*" -> {
-                    result = (calculationList[index - 1].toDouble() * calculationList[index + 1].toDouble())
+                    result =
+                        (calculationList[index - 1].toDouble() * calculationList[index + 1].toDouble())
                 }
+
                 in "/" -> {
-                    result = (calculationList[index - 1].toDouble() / calculationList[index + 1].toDouble())
+                    result =
+                        (calculationList[index - 1].toDouble() / calculationList[index + 1].toDouble())
                 }
             }
             index += 1
         }
-        //println(result)
-
+        val resultString: String = if (result % 1 != 0.0) {
+            result.toString()
+        } else {
+            result.toInt().toString()
+        }
+        return resultString.take(12)
     }
 
-    fun calculateResult(data:String){
-        dataSplitter(data)
-        makeCalculations()
-
-
+    fun calculateResult(calculationDataString: String): String {
+        dataSplitter(calculationDataString)
+        return makeCalculations()
     }
 
 

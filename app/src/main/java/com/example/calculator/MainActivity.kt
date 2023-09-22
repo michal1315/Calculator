@@ -10,8 +10,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         var calculationDataString = ""
         val dataHandler = DataHandler()
+
 
         val calText = findViewById<TextView>(R.id.currentCal)
 
@@ -34,39 +36,45 @@ class MainActivity : AppCompatActivity() {
         val dotButton = findViewById<Button>(R.id.dotButton)
         val equateButton = findViewById<Button>(R.id.equateButton)
 
-        fun sendToCalculation(textToAdd: String) {
-            calculationDataString += textToAdd
-            calText.text = calculationDataString
+
+        fun refreshText(newTextToShow: String) {
+            calText.text = newTextToShow
         }
 
-        oneButton.setOnClickListener { sendToCalculation("1") }
-        twoButton.setOnClickListener { sendToCalculation("2") }
-        threeButton.setOnClickListener { sendToCalculation("3") }
-        fourButton.setOnClickListener { sendToCalculation("4") }
-        fiveButton.setOnClickListener { sendToCalculation("5") }
-        sixButton.setOnClickListener { sendToCalculation("6") }
-        sevenButton.setOnClickListener { sendToCalculation("7") }
-        eightButton.setOnClickListener { sendToCalculation("8") }
-        nineButton.setOnClickListener { sendToCalculation("9") }
-        zeroButton.setOnClickListener { sendToCalculation("0") }
+        fun addToCalculation(textToAdd: String) {
+            calculationDataString += textToAdd
+            refreshText(calculationDataString)
+        }
 
-        dotButton.setOnClickListener { sendToCalculation(".") }
+        oneButton.setOnClickListener { addToCalculation("1") }
+        twoButton.setOnClickListener { addToCalculation("2") }
+        threeButton.setOnClickListener { addToCalculation("3") }
+        fourButton.setOnClickListener { addToCalculation("4") }
+        fiveButton.setOnClickListener { addToCalculation("5") }
+        sixButton.setOnClickListener { addToCalculation("6") }
+        sevenButton.setOnClickListener { addToCalculation("7") }
+        eightButton.setOnClickListener { addToCalculation("8") }
+        nineButton.setOnClickListener { addToCalculation("9") }
+        zeroButton.setOnClickListener { addToCalculation("0") }
+
+        dotButton.setOnClickListener { addToCalculation(".") }
 
         clearButton.setOnClickListener { }
 
         deleteButton.setOnClickListener { }
 
-        dividerButton.setOnClickListener { sendToCalculation("/") }
+        dividerButton.setOnClickListener { addToCalculation("/") }
 
-        multiButton.setOnClickListener { sendToCalculation("*") }
+        multiButton.setOnClickListener { addToCalculation("*") }
 
-        subtractButton.setOnClickListener { sendToCalculation("-") }
+        subtractButton.setOnClickListener { addToCalculation("-") }
 
-        addButton.setOnClickListener { sendToCalculation("+") }
+        addButton.setOnClickListener { addToCalculation("+") }
 
         equateButton.setOnClickListener {
-            dataHandler.calculateResult(calculationDataString)
-            sendToCalculation("\n= ${dataHandler.result}") }
+            calculationDataString = dataHandler.calculateResult(calculationDataString)
+            refreshText(calculationDataString)
+        }
 
 
     }
