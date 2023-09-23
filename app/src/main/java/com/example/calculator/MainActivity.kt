@@ -11,10 +11,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
+        var firstPartOfEquation = true
+        var secondPartOfEquation = false
+        var numButtonsUnlock = true
+        var algebraButtonsUnlock = false
+        var dotButtonUnlock = false
+        var dotsAmount = 0
+
+
         var calculationDataString = ""
         val dataHandler = DataHandler()
-
-
         val calText = findViewById<TextView>(R.id.currentCal)
 
         val clearButton = findViewById<Button>(R.id.clearButton)
@@ -37,14 +43,70 @@ class MainActivity : AppCompatActivity() {
         val equateButton = findViewById<Button>(R.id.equateButton)
 
 
+        fun intLocksState() {
+            firstPartOfEquation = true
+            secondPartOfEquation = false
+            numButtonsUnlock = true
+            algebraButtonsUnlock = false
+            dotsAmount = 0
+            dotButtonUnlock = false
+        }
+
         fun refreshText(newTextToShow: String) {
             calText.text = newTextToShow
         }
 
-        fun addToCalculation(textToAdd: String) {
-            calculationDataString += textToAdd
+        fun clearCalculationData() {
+            calculationDataString = ""
+            refreshText(calculationDataString)
+            intLocksState()
+        }
+
+        fun deleteCalculationData() {
+            calculationDataString = calculationDataString.dropLast(1)
             refreshText(calculationDataString)
         }
+
+        fun addToCalculation(textToAdd: String) {
+            when (textToAdd) {
+                in "1234567890" -> {
+                    algebraButtonsUnlock = true
+                    dotButtonUnlock = true
+                    if (secondPartOfEquation) {
+                        algebraButtonsUnlock = false
+                    }
+                    calculationDataString += textToAdd
+                    refreshText(calculationDataString)
+                }
+
+                in "-+*/" -> {
+                    firstPartOfEquation = false
+                    secondPartOfEquation = true
+                    dotsAmount = 0
+                    dotButtonUnlock = false
+                    if (algebraButtonsUnlock) {
+                        calculationDataString += textToAdd
+                        refreshText(calculationDataString)
+                    }
+                    algebraButtonsUnlock = false
+                }
+
+                in "." -> {
+                    if (firstPartOfEquation && dotsAmount == 0 && dotButtonUnlock) {
+                        calculationDataString += textToAdd
+                        refreshText(calculationDataString)
+                        dotsAmount++
+                    }
+                    if (secondPartOfEquation && dotsAmount == 0 && dotButtonUnlock) {
+                        calculationDataString += textToAdd
+                        refreshText(calculationDataString)
+                        dotsAmount++
+                    }
+                }
+            }
+        }
+
+
 
         oneButton.setOnClickListener { addToCalculation("1") }
         twoButton.setOnClickListener { addToCalculation("2") }
@@ -57,31 +119,20 @@ class MainActivity : AppCompatActivity() {
         nineButton.setOnClickListener { addToCalculation("9") }
         zeroButton.setOnClickListener { addToCalculation("0") }
 
+        clearButton.setOnClickListener { clearCalculationData() }
+        deleteButton.setOnClickListener { deleteCalculationData() }
+
         dotButton.setOnClickListener { addToCalculation(".") }
 
-        clearButton.setOnClickListener {
-            calculationDataString = ""
-            refreshText(calculationDataString)
-        }
-
-        deleteButton.setOnClickListener {
-            calculationDataString = calculationDataString.dropLast(1)
-            refreshText(calculationDataString)
-        }
-
         dividerButton.setOnClickListener { addToCalculation("/") }
-
         multiButton.setOnClickListener { addToCalculation("*") }
-
         subtractButton.setOnClickListener { addToCalculation("-") }
-
         addButton.setOnClickListener { addToCalculation("+") }
 
         equateButton.setOnClickListener {
             calculationDataString = dataHandler.calculateResult(calculationDataString)
             refreshText(calculationDataString)
         }
-
 
     }
 }

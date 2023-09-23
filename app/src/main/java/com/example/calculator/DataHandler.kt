@@ -10,7 +10,7 @@ class DataHandler {
 
         while (index <= data.length - 1) {
             when (data[index]) {
-                in "1234567890" -> {
+                in "1234567890." -> {
                     numToCal += data[index]
                 }
 
