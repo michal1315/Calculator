@@ -63,6 +63,29 @@ class MainActivity : AppCompatActivity() {
         }
 
         fun deleteCalculationData() {
+            if (calculationDataString.isNotEmpty()) {
+                when (calculationDataString.last()) {
+                    in "1234567890" -> {
+                        println("number")
+                    }
+
+                    in "-+*/" -> {
+                        println("algebra")
+                    }
+
+                    in "." -> {
+                        if(firstPartOfEquation){
+                            dotsAmount = 0
+                            dotButtonUnlock = true
+                        }
+                        if(secondPartOfEquation){
+                            dotsAmount = 0
+                            dotButtonUnlock = true
+                        }
+                        println("dot")
+                    }
+                }
+            }
             calculationDataString = calculationDataString.dropLast(1)
             refreshText(calculationDataString)
         }
@@ -80,15 +103,15 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 in "-+*/" -> {
-                    firstPartOfEquation = false
-                    secondPartOfEquation = true
-                    dotsAmount = 0
-                    dotButtonUnlock = false
                     if (algebraButtonsUnlock) {
+                        dotsAmount = 0
+                        dotButtonUnlock = false
+                        firstPartOfEquation = false
+                        secondPartOfEquation = true
                         calculationDataString += textToAdd
                         refreshText(calculationDataString)
+                        algebraButtonsUnlock = false
                     }
-                    algebraButtonsUnlock = false
                 }
 
                 in "." -> {
@@ -96,11 +119,13 @@ class MainActivity : AppCompatActivity() {
                         calculationDataString += textToAdd
                         refreshText(calculationDataString)
                         dotsAmount++
+                        algebraButtonsUnlock = false
                     }
                     if (secondPartOfEquation && dotsAmount == 0 && dotButtonUnlock) {
                         calculationDataString += textToAdd
                         refreshText(calculationDataString)
                         dotsAmount++
+                        algebraButtonsUnlock = false
                     }
                 }
             }
