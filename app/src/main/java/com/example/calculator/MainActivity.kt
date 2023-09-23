@@ -109,14 +109,16 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 in "-+*/" -> {
-                    if (algebraButtonsUnlock) {
-                        dotsAmount = 0
-                        dotButtonUnlock = false
-                        firstPartOfEquation = false
-                        secondPartOfEquation = true
-                        calculationDataString += textToAdd
-                        refreshText(calculationDataString)
-                        algebraButtonsUnlock = false
+                    if (calculationDataString.last() != '.') {
+                        if (algebraButtonsUnlock) {
+                            dotsAmount = 0
+                            dotButtonUnlock = false
+                            firstPartOfEquation = false
+                            secondPartOfEquation = true
+                            calculationDataString += textToAdd
+                            refreshText(calculationDataString)
+                            algebraButtonsUnlock = false
+                        }
                     }
                 }
 
