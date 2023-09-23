@@ -66,23 +66,29 @@ class MainActivity : AppCompatActivity() {
             if (calculationDataString.isNotEmpty()) {
                 when (calculationDataString.last()) {
                     in "1234567890" -> {
-                        println("number")
+                        if (firstPartOfEquation) {
+                            algebraButtonsUnlock = true
+                        }
+                        if (secondPartOfEquation) {
+                            algebraButtonsUnlock = false
+                        }
                     }
 
                     in "-+*/" -> {
-                        println("algebra")
+                        algebraButtonsUnlock = true
+                        firstPartOfEquation = true
+                        secondPartOfEquation = false
                     }
 
                     in "." -> {
-                        if(firstPartOfEquation){
+                        if (firstPartOfEquation) {
                             dotsAmount = 0
                             dotButtonUnlock = true
                         }
-                        if(secondPartOfEquation){
+                        if (secondPartOfEquation) {
                             dotsAmount = 0
                             dotButtonUnlock = true
                         }
-                        println("dot")
                     }
                 }
             }
