@@ -16,21 +16,23 @@ class MainActivity : AppCompatActivity() {
 
         val clearButton = findViewById<Button>(R.id.clearButton)
         val deleteButton = findViewById<Button>(R.id.deleteButton)
-        val dividerButton = findViewById<Button>(R.id.dividerButton)
-        val sevenButton = findViewById<Button>(R.id.sevenButton)
-        val eightButton = findViewById<Button>(R.id.eightButton)
-        val nineButton = findViewById<Button>(R.id.nineButton)
-        val multiButton = findViewById<Button>(R.id.multiButton)
-        val fourButton = findViewById<Button>(R.id.fourButton)
-        val fiveButton = findViewById<Button>(R.id.fiveButton)
-        val sixButton = findViewById<Button>(R.id.sixButton)
-        val subtractButton = findViewById<Button>(R.id.subtractButton)
+
         val oneButton = findViewById<Button>(R.id.oneButton)
         val twoButton = findViewById<Button>(R.id.twoButton)
         val threeButton = findViewById<Button>(R.id.threeButton)
-        val addButton = findViewById<Button>(R.id.addButton)
+        val fourButton = findViewById<Button>(R.id.fourButton)
+        val fiveButton = findViewById<Button>(R.id.fiveButton)
+        val sixButton = findViewById<Button>(R.id.sixButton)
+        val sevenButton = findViewById<Button>(R.id.sevenButton)
+        val eightButton = findViewById<Button>(R.id.eightButton)
+        val nineButton = findViewById<Button>(R.id.nineButton)
         val zeroButton = findViewById<Button>(R.id.zeroButton)
         val dotButton = findViewById<Button>(R.id.dotButton)
+
+        val addButton = findViewById<Button>(R.id.addButton)
+        val subtractButton = findViewById<Button>(R.id.subtractButton)
+        val dividerButton = findViewById<Button>(R.id.dividerButton)
+        val multiButton = findViewById<Button>(R.id.multiButton)
         val equateButton = findViewById<Button>(R.id.equateButton)
 
 
@@ -42,8 +44,6 @@ class MainActivity : AppCompatActivity() {
             dataProcessing.charSanitizer(char)
             refreshText(dataProcessing.textViewString)
         }
-
-
 
         oneButton.setOnClickListener { sendToProcessing("1") }
         twoButton.setOnClickListener { sendToProcessing("2") }
@@ -60,7 +60,10 @@ class MainActivity : AppCompatActivity() {
             dataProcessing.clearData()
             refreshText(dataProcessing.textViewString)
         }
-        deleteButton.setOnClickListener { dataProcessing.deleteChar() }
+        deleteButton.setOnClickListener {
+            dataProcessing.deleteChar()
+            refreshText(dataProcessing.textViewString)
+        }
 
         dotButton.setOnClickListener { sendToProcessing(".") }
 

@@ -12,6 +12,9 @@ class DataProcessing {
     private var toPreviousResult = false
 
 
+    private fun textViewRefresh(){
+        textViewString = firstPartString + algebraSign + secondPartString
+    }
     fun charSanitizer(char: String) {
         when (char) {
             in "-+*/" -> {
@@ -50,7 +53,9 @@ class DataProcessing {
                 }
             }
         }
-        textViewString = firstPartString + algebraSign + secondPartString
+        textViewRefresh()
+
+        //println("$firstPartString  $algebraSign  $secondPartString")
 
     }
 
@@ -101,6 +106,22 @@ class DataProcessing {
 
 
     fun deleteChar(){
+        if(firstPartString.isNotEmpty() && algebraSign.isEmpty() && !toPreviousResult){
+            firstPartString = firstPartString.dropLast(1)
+            textViewRefresh()
+        }
+        if(algebraSign.isNotEmpty() && secondPartString.isEmpty()){
+            algebraSign = algebraSign.dropLast(1)
+            firstPartEquation = true
+            secondPartEquation = false
+            textViewRefresh()
+        }
+        if(secondPartString.isNotEmpty()){
+            secondPartString = secondPartString.dropLast(1)
+            textViewRefresh()
+        }
+
+
     }
 
     fun clearData(){
