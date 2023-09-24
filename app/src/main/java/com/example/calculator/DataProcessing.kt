@@ -12,9 +12,10 @@ class DataProcessing {
     private var toPreviousResult = false
 
 
-    private fun textViewRefresh(){
+    private fun textViewRefresh() {
         textViewString = firstPartString + algebraSign + secondPartString
     }
+
     fun charSanitizer(char: String) {
         when (char) {
             in "-+*/" -> {
@@ -65,58 +66,62 @@ class DataProcessing {
         algebraSing: String,
         secondPart: String
     ) {
-        var result = 0.0
-        when (algebraSing) {
-            in "-" -> {
-                result =
-                    (firstPart.toDouble() - secondPart.toDouble())
+        if (firstPartString.isNotEmpty() &&
+            algebraSign.isNotEmpty() &&
+            secondPartString.isNotEmpty()
+        ) {
+            var result = 0.0
+            when (algebraSing) {
+                in "-" -> {
+                    result =
+                        (firstPart.toDouble() - secondPart.toDouble())
+                }
+
+                in "+" -> {
+                    result =
+                        (firstPart.toDouble() + secondPart.toDouble())
+                }
+
+                in "*" -> {
+                    result =
+                        (firstPart.toDouble() * secondPart.toDouble())
+                }
+
+                in "/" -> {
+                    result =
+                        (firstPart.toDouble() / secondPart.toDouble())
+                }
+            }
+            val resultString: String = if (result % 1 != 0.0) {
+                result.toString().take(12)
+            } else {
+                result.toInt().toString().take(12)
             }
 
-            in "+" -> {
-                result =
-                    (firstPart.toDouble() + secondPart.toDouble())
-            }
+            toPreviousResult = true
+            secondPartEquation = false
+            textViewString = resultString
+            firstPartString = resultString
+            secondPartString = ""
+            algebraSign = ""
 
-            in "*" -> {
-                result =
-                    (firstPart.toDouble() * secondPart.toDouble())
-            }
 
-            in "/" -> {
-                result =
-                    (firstPart.toDouble() / secondPart.toDouble())
-            }
         }
-        val resultString: String = if (result % 1 != 0.0) {
-            result.toString().take(12)
-        } else {
-            result.toInt().toString().take(12)
-        }
-
-        toPreviousResult = true
-        secondPartEquation = false
-        textViewString =  resultString
-        firstPartString = resultString
-        secondPartString = ""
-        algebraSign = ""
-
-
     }
 
 
-
-    fun deleteChar(){
-        if(firstPartString.isNotEmpty() && algebraSign.isEmpty() && !toPreviousResult){
+    fun deleteChar() {
+        if (firstPartString.isNotEmpty() && algebraSign.isEmpty() && !toPreviousResult) {
             firstPartString = firstPartString.dropLast(1)
             textViewRefresh()
         }
-        if(algebraSign.isNotEmpty() && secondPartString.isEmpty()){
+        if (algebraSign.isNotEmpty() && secondPartString.isEmpty()) {
             algebraSign = algebraSign.dropLast(1)
             firstPartEquation = true
             secondPartEquation = false
             textViewRefresh()
         }
-        if(secondPartString.isNotEmpty()){
+        if (secondPartString.isNotEmpty()) {
             secondPartString = secondPartString.dropLast(1)
             textViewRefresh()
         }
@@ -124,7 +129,7 @@ class DataProcessing {
 
     }
 
-    fun clearData(){
+    fun clearData() {
         textViewString = ""
         firstPartString = ""
         secondPartString = ""
