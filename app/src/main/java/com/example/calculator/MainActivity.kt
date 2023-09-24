@@ -11,16 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        var firstPartOfEquation = true
-        var secondPartOfEquation = false
-        var numButtonsUnlock = true
-        var algebraButtonsUnlock = false
-        var dotButtonUnlock = false
-        var dotsAmount = 0
-
-
-        var calculationDataString = ""
-        val dataHandler = DataHandler()
+        val dataProcessing = DataProcessing()
         val calText = findViewById<TextView>(R.id.currentCal)
 
         val clearButton = findViewById<Button>(R.id.clearButton)
@@ -43,129 +34,48 @@ class MainActivity : AppCompatActivity() {
         val equateButton = findViewById<Button>(R.id.equateButton)
 
 
-        fun intLocksState() {
-            firstPartOfEquation = true
-            secondPartOfEquation = false
-            numButtonsUnlock = true
-            algebraButtonsUnlock = false
-            dotsAmount = 0
-            dotButtonUnlock = false
-        }
-
         fun refreshText(newTextToShow: String) {
             calText.text = newTextToShow
         }
 
-        fun clearCalculationData() {
-            calculationDataString = ""
-            refreshText(calculationDataString)
-            intLocksState()
-        }
-
-        fun deleteCalculationData() {
-            if (calculationDataString.isNotEmpty()) {
-                when (calculationDataString.last()) {
-                    in "1234567890" -> {
-                        if (firstPartOfEquation) {
-                            algebraButtonsUnlock = true
-                        }
-                        if (secondPartOfEquation) {
-                            algebraButtonsUnlock = false
-                        }
-                    }
-
-                    in "-+*/" -> {
-                        algebraButtonsUnlock = true
-                        firstPartOfEquation = true
-                        secondPartOfEquation = false
-                    }
-
-                    in "." -> {
-                        if (firstPartOfEquation) {
-                            dotsAmount = 0
-                            dotButtonUnlock = true
-                        }
-                        if (secondPartOfEquation) {
-                            dotsAmount = 0
-                            dotButtonUnlock = true
-                        }
-                    }
-                }
-            }
-            calculationDataString = calculationDataString.dropLast(1)
-            refreshText(calculationDataString)
-        }
-
-        fun addToCalculation(textToAdd: String) {
-            when (textToAdd) {
-                in "1234567890" -> {
-                    algebraButtonsUnlock = true
-                    dotButtonUnlock = true
-                    if (secondPartOfEquation) {
-                        algebraButtonsUnlock = false
-                    }
-                    calculationDataString += textToAdd
-                    refreshText(calculationDataString)
-                }
-
-                in "-+*/" -> {
-                    if (calculationDataString.last() != '.') {
-                        if (algebraButtonsUnlock) {
-                            dotsAmount = 0
-                            dotButtonUnlock = false
-                            firstPartOfEquation = false
-                            secondPartOfEquation = true
-                            calculationDataString += textToAdd
-                            refreshText(calculationDataString)
-                            algebraButtonsUnlock = false
-                        }
-                    }
-                }
-
-                in "." -> {
-                    if (firstPartOfEquation && dotsAmount == 0 && dotButtonUnlock) {
-                        calculationDataString += textToAdd
-                        refreshText(calculationDataString)
-                        dotsAmount++
-                        algebraButtonsUnlock = false
-                    }
-                    if (secondPartOfEquation && dotsAmount == 0 && dotButtonUnlock) {
-                        calculationDataString += textToAdd
-                        refreshText(calculationDataString)
-                        dotsAmount++
-                        algebraButtonsUnlock = false
-                    }
-                }
-            }
+        fun sendToProcessing(char: String) {
+            dataProcessing.charSanitizer(char)
+            refreshText(dataProcessing.textViewString)
         }
 
 
 
-        oneButton.setOnClickListener { addToCalculation("1") }
-        twoButton.setOnClickListener { addToCalculation("2") }
-        threeButton.setOnClickListener { addToCalculation("3") }
-        fourButton.setOnClickListener { addToCalculation("4") }
-        fiveButton.setOnClickListener { addToCalculation("5") }
-        sixButton.setOnClickListener { addToCalculation("6") }
-        sevenButton.setOnClickListener { addToCalculation("7") }
-        eightButton.setOnClickListener { addToCalculation("8") }
-        nineButton.setOnClickListener { addToCalculation("9") }
-        zeroButton.setOnClickListener { addToCalculation("0") }
+        oneButton.setOnClickListener { sendToProcessing("1") }
+        twoButton.setOnClickListener { sendToProcessing("2") }
+        threeButton.setOnClickListener { sendToProcessing("3") }
+        fourButton.setOnClickListener { sendToProcessing("4") }
+        fiveButton.setOnClickListener { sendToProcessing("5") }
+        sixButton.setOnClickListener { sendToProcessing("6") }
+        sevenButton.setOnClickListener { sendToProcessing("7") }
+        eightButton.setOnClickListener { sendToProcessing("8") }
+        nineButton.setOnClickListener { sendToProcessing("9") }
+        zeroButton.setOnClickListener { sendToProcessing("0") }
 
-        clearButton.setOnClickListener { clearCalculationData() }
-        deleteButton.setOnClickListener { deleteCalculationData() }
+        clearButton.setOnClickListener {
+            dataProcessing.clearData()
+            refreshText(dataProcessing.textViewString)
+        }
+        deleteButton.setOnClickListener { dataProcessing.deleteChar() }
 
-        dotButton.setOnClickListener { addToCalculation(".") }
+        dotButton.setOnClickListener { sendToProcessing(".") }
 
-        dividerButton.setOnClickListener { addToCalculation("/") }
-        multiButton.setOnClickListener { addToCalculation("*") }
-        subtractButton.setOnClickListener { addToCalculation("-") }
-        addButton.setOnClickListener { addToCalculation("+") }
+        dividerButton.setOnClickListener { sendToProcessing("/") }
+        multiButton.setOnClickListener { sendToProcessing("*") }
+        subtractButton.setOnClickListener { sendToProcessing("-") }
+        addButton.setOnClickListener { sendToProcessing("+") }
 
         equateButton.setOnClickListener {
-            calculationDataString = dataHandler.calculateResult(calculationDataString)
-            refreshText(calculationDataString)
+            dataProcessing.makeCalculations(
+                dataProcessing.firstPartString,
+                dataProcessing.algebraSign,
+                dataProcessing.secondPartString
+            )
+            refreshText(dataProcessing.textViewString)
         }
-
     }
 }
