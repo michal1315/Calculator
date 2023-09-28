@@ -2,6 +2,7 @@ package com.example.calculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Button
 import android.widget.TextView
 
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val dataProcessing = DataProcessing()
+    val dataProcessing = DataProcessing()
         val calText = findViewById<TextView>(R.id.currentCal)
 
         val clearButton = findViewById<Button>(R.id.clearButton)
@@ -86,4 +87,10 @@ class MainActivity : AppCompatActivity() {
             refreshText(dataProcessing.textViewString)
         }
     }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
 }
