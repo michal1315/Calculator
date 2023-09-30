@@ -15,9 +15,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.main_toolbar))
 
 
-
-
-    val dataProcessing = DataProcessing()
+        val dataProcessing = DataProcessing()
         val calText = findViewById<TextView>(R.id.currentCal)
 
         val clearButton = findViewById<Button>(R.id.clearButton)
@@ -87,6 +85,7 @@ class MainActivity : AppCompatActivity() {
             refreshText(dataProcessing.textViewString)
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return super.onCreateOptionsMenu(menu)

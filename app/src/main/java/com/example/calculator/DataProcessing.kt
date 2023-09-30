@@ -20,7 +20,8 @@ class DataProcessing {
         when (char) {
             in "-+*/" -> {
                 if (algebraSign.isEmpty() &&
-                    firstPartString.isNotEmpty()
+                    firstPartString.isNotEmpty() &&
+                    !firstPartString.endsWith(".")
                 ) {
                     firstPartEquation = false
                     secondPartEquation = true
@@ -40,8 +41,7 @@ class DataProcessing {
             in "." -> {
                 if (!firstPartString.contains('.') &&
                     !firstPartString.endsWith('.') &&
-                    firstPartString.isNotEmpty() &&
-                    algebraSign.isEmpty()
+                    firstPartString.isNotEmpty()
                 ) {
                     firstPartString += char
                 }
@@ -68,7 +68,8 @@ class DataProcessing {
     ) {
         if (firstPartString.isNotEmpty() &&
             algebraSign.isNotEmpty() &&
-            secondPartString.isNotEmpty()
+            secondPartString.isNotEmpty() &&
+            !secondPartString.endsWith(".")
         ) {
             var result = 0.0
             when (algebraSing) {
@@ -136,5 +137,6 @@ class DataProcessing {
         algebraSign = ""
         firstPartEquation = true
         secondPartEquation = false
+        toPreviousResult = false
     }
 }
