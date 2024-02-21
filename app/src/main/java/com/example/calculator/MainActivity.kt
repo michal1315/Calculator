@@ -1,17 +1,22 @@
 package com.example.calculator
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+        setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.main_toolbar))
 
 
@@ -84,12 +89,37 @@ class MainActivity : AppCompatActivity() {
             )
             refreshText(dataProcessing.textViewString)
         }
+
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return super.onCreateOptionsMenu(menu)
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.toolbar_menu, menu)
+        return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.settings -> {
 
+                val settingsActivity = Intent(this, SettingsActivity::class.java)
+                startActivity(settingsActivity)
+
+                true
+            }
+
+            R.id.about -> {
+
+                val aboutActivity = Intent(this, AboutActivity::class.java)
+                startActivity(aboutActivity)
+
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }
+
+
