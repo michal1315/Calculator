@@ -3,73 +3,73 @@ package com.example.calculator
 
 class DataProcessing {
 
-    var textViewString = ""
-    var firstPartString = ""
-    var secondPartString = ""
-    var algebraSign = ""
-    private var firstPartEquation = true
-    private var secondPartEquation = false
+    var tvString = ""
+    var leftSide = ""
+    var rightSide = ""
+    var operationSing = ""
+    private var leftSideStart = true
+    private var rightSideStart = false
     private var toPreviousResult = false
 
 
-    private fun textViewRefresh() {
-        textViewString = firstPartString + algebraSign + secondPartString
+    private fun tvRefresh() {
+        tvString = leftSide + operationSing + rightSide
     }
 
-    fun charSanitizer(char: String) {
+    fun inputSanitizer(char: String) {
         when (char) {
             in "-+*/" -> {
-                if (algebraSign.isEmpty() &&
-                    firstPartString.isNotEmpty() &&
-                    !firstPartString.endsWith(".")
+                if (operationSing.isEmpty() &&
+                    leftSide.isNotEmpty() &&
+                    !leftSide.endsWith(".")
                 ) {
-                    firstPartEquation = false
-                    secondPartEquation = true
-                    algebraSign += char
+                    leftSideStart = false
+                    rightSideStart = true
+                    operationSing += char
                 }
             }
 
             in "1234567890" -> {
-                if (firstPartEquation) {
-                    firstPartString += char
+                if (leftSideStart) {
+                    leftSide += char
                 }
-                if (secondPartEquation) {
-                    secondPartString += char
+                if (rightSideStart) {
+                    rightSide += char
                 }
             }
 
             in "." -> {
-                if (!firstPartString.contains('.') &&
-                    !firstPartString.endsWith('.') &&
-                    firstPartString.isNotEmpty()
+                if (!leftSide.contains('.') &&
+                    !leftSide.endsWith('.') &&
+                    leftSide.isNotEmpty()
                 ) {
-                    firstPartString += char
+                    leftSide += char
                 }
 
-                if (!secondPartString.contains('.') &&
-                    !secondPartString.endsWith('.') &&
-                    secondPartString.isNotEmpty()
+                if (!rightSide.contains('.') &&
+                    !rightSide.endsWith('.') &&
+                    rightSide.isNotEmpty()
                 ) {
-                    secondPartString += char
+                    rightSide += char
                 }
             }
         }
-        textViewRefresh()
+        tvRefresh()
 
         //println("$firstPartString  $algebraSign  $secondPartString")
 
     }
 
 
-    fun makeCalculations(
+    fun calculate(
         firstPart: String,
         algebraSing: String,
         secondPart: String
     ) {
-        if (firstPartString.isNotEmpty() &&
-            algebraSign.isNotEmpty() &&
-            secondPartString.isNotEmpty() &&
-            !secondPartString.endsWith(".")
+        if (leftSide.isNotEmpty() &&
+            operationSing.isNotEmpty() &&
+            rightSide.isNotEmpty() &&
+            !rightSide.endsWith(".")
         ) {
             var result = 0.0
             when (algebraSing) {
@@ -100,43 +100,43 @@ class DataProcessing {
             }
 
             toPreviousResult = true
-            secondPartEquation = false
-            textViewString = resultString
-            firstPartString = resultString
-            secondPartString = ""
-            algebraSign = ""
+            rightSideStart = false
+            tvString = resultString
+            leftSide = resultString
+            rightSide = ""
+            operationSing = ""
 
 
         }
     }
 
 
-    fun deleteChar() {
-        if (firstPartString.isNotEmpty() && algebraSign.isEmpty() && !toPreviousResult) {
-            firstPartString = firstPartString.dropLast(1)
-            textViewRefresh()
+    fun delete() {
+        if (leftSide.isNotEmpty() && operationSing.isEmpty() && !toPreviousResult) {
+            leftSide = leftSide.dropLast(1)
+            tvRefresh()
         }
-        if (algebraSign.isNotEmpty() && secondPartString.isEmpty()) {
-            algebraSign = algebraSign.dropLast(1)
-            firstPartEquation = true
-            secondPartEquation = false
-            textViewRefresh()
+        if (operationSing.isNotEmpty() && rightSide.isEmpty()) {
+            operationSing = operationSing.dropLast(1)
+            leftSideStart = true
+            rightSideStart = false
+            tvRefresh()
         }
-        if (secondPartString.isNotEmpty()) {
-            secondPartString = secondPartString.dropLast(1)
-            textViewRefresh()
+        if (rightSide.isNotEmpty()) {
+            rightSide = rightSide.dropLast(1)
+            tvRefresh()
         }
 
 
     }
 
-    fun clearData() {
-        textViewString = ""
-        firstPartString = ""
-        secondPartString = ""
-        algebraSign = ""
-        firstPartEquation = true
-        secondPartEquation = false
+    fun clear() {
+        tvString = ""
+        leftSide = ""
+        rightSide = ""
+        operationSing = ""
+        leftSideStart = true
+        rightSideStart = false
         toPreviousResult = false
     }
 }

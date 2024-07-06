@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
 
         val dataProcessing = DataProcessing()
-        val calText = findViewById<TextView>(R.id.currentCal)
+        val calText = findViewById<TextView>(R.id.tvInput)
 
         val clearButton = findViewById<Button>(R.id.clearButton)
         val deleteButton = findViewById<Button>(R.id.deleteButton)
@@ -49,45 +49,45 @@ class MainActivity : AppCompatActivity() {
             calText.text = newTextToShow
         }
 
-        fun sendToProcessing(char: String) {
-            dataProcessing.charSanitizer(char)
-            refreshText(dataProcessing.textViewString)
+        fun toProcessing(char: String) {
+            dataProcessing.inputSanitizer(char)
+            refreshText(dataProcessing.tvString)
         }
 
-        oneButton.setOnClickListener { sendToProcessing("1") }
-        twoButton.setOnClickListener { sendToProcessing("2") }
-        threeButton.setOnClickListener { sendToProcessing("3") }
-        fourButton.setOnClickListener { sendToProcessing("4") }
-        fiveButton.setOnClickListener { sendToProcessing("5") }
-        sixButton.setOnClickListener { sendToProcessing("6") }
-        sevenButton.setOnClickListener { sendToProcessing("7") }
-        eightButton.setOnClickListener { sendToProcessing("8") }
-        nineButton.setOnClickListener { sendToProcessing("9") }
-        zeroButton.setOnClickListener { sendToProcessing("0") }
+        oneButton.setOnClickListener { toProcessing("1") }
+        twoButton.setOnClickListener { toProcessing("2") }
+        threeButton.setOnClickListener { toProcessing("3") }
+        fourButton.setOnClickListener { toProcessing("4") }
+        fiveButton.setOnClickListener { toProcessing("5") }
+        sixButton.setOnClickListener { toProcessing("6") }
+        sevenButton.setOnClickListener { toProcessing("7") }
+        eightButton.setOnClickListener { toProcessing("8") }
+        nineButton.setOnClickListener { toProcessing("9") }
+        zeroButton.setOnClickListener { toProcessing("0") }
 
         clearButton.setOnClickListener {
-            dataProcessing.clearData()
-            refreshText(dataProcessing.textViewString)
+            dataProcessing.clear()
+            refreshText(dataProcessing.tvString)
         }
         deleteButton.setOnClickListener {
-            dataProcessing.deleteChar()
-            refreshText(dataProcessing.textViewString)
+            dataProcessing.delete()
+            refreshText(dataProcessing.tvString)
         }
 
-        dotButton.setOnClickListener { sendToProcessing(".") }
+        dotButton.setOnClickListener { toProcessing(".") }
 
-        dividerButton.setOnClickListener { sendToProcessing("/") }
-        multiButton.setOnClickListener { sendToProcessing("*") }
-        subtractButton.setOnClickListener { sendToProcessing("-") }
-        addButton.setOnClickListener { sendToProcessing("+") }
+        dividerButton.setOnClickListener { toProcessing("/") }
+        multiButton.setOnClickListener { toProcessing("*") }
+        subtractButton.setOnClickListener { toProcessing("-") }
+        addButton.setOnClickListener { toProcessing("+") }
 
         equateButton.setOnClickListener {
-            dataProcessing.makeCalculations(
-                dataProcessing.firstPartString,
-                dataProcessing.algebraSign,
-                dataProcessing.secondPartString
+            dataProcessing.calculate(
+                dataProcessing.leftSide,
+                dataProcessing.operationSing,
+                dataProcessing.rightSide
             )
-            refreshText(dataProcessing.textViewString)
+            refreshText(dataProcessing.tvString)
         }
 
     }
