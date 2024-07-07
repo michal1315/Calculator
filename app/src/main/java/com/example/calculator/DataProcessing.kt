@@ -3,6 +3,7 @@ package com.example.calculator
 
 class DataProcessing {
 
+    private var result = 0.0
     var tvInputString = ""
     var tvResultString = ""
     private var leftSide = ""
@@ -15,6 +16,15 @@ class DataProcessing {
 
     private fun tvInputRefresh() {
         tvInputString = leftSide + operationSing + rightSide
+    }
+
+    private fun tvResultRefresh() {
+        tvResultString = if (result % 1 != 0.0) {
+            result.toString().take(12)
+        } else {
+            result.toInt().toString().take(12)
+        }
+        tvResultString = "= $tvResultString"
     }
 
     private fun clear() {
@@ -123,12 +133,12 @@ class DataProcessing {
         operationSing: String,
         rightSide: String
     ) {
+
         if (this.leftSide.isNotEmpty() &&
             this.operationSing.isNotEmpty() &&
             this.rightSide.isNotEmpty() &&
             !this.rightSide.endsWith(".")
         ) {
-            var result = 0.0
             when (operationSing) {
                 in "-" -> {
                     result =
@@ -150,14 +160,8 @@ class DataProcessing {
                         (leftSide.toDouble() / rightSide.toDouble())
                 }
 
-
             }
-            tvResultString = if (result % 1 != 0.0) {
-                result.toString().take(12)
-            } else {
-                result.toInt().toString().take(12)
-            }
-
+            tvResultRefresh()
         }
         tvInputRefresh()
     }
