@@ -5,9 +5,9 @@ class DataProcessing {
 
     var tvInputString = ""
     var tvResultString = ""
-    var leftSide = ""
-    var rightSide = ""
-    var operationSing = ""
+    private var leftSide = ""
+    private var rightSide = ""
+    private var operationSing = ""
     private var typingLeftSide = true
     private var typingRightSide = false
     private var toPreviousResult = false
@@ -38,7 +38,7 @@ class DataProcessing {
 
     }
 
-    fun delete() {
+    private fun delete() {
         if (leftSide.isNotEmpty() && operationSing.isEmpty() && !toPreviousResult) {
             leftSide = leftSide.dropLast(1)
             tvInputRefresh()
@@ -82,14 +82,16 @@ class DataProcessing {
             in "." -> {
                 if (!leftSide.contains('.') &&
                     !leftSide.endsWith('.') &&
-                    leftSide.isNotEmpty()
+                    leftSide.isNotEmpty() &&
+                    typingLeftSide
                 ) {
                     leftSide += char
                 }
 
                 if (!rightSide.contains('.') &&
                     !rightSide.endsWith('.') &&
-                    rightSide.isNotEmpty()
+                    rightSide.isNotEmpty() &&
+                    typingRightSide
                 ) {
                     rightSide += char
                 }
@@ -116,7 +118,7 @@ class DataProcessing {
     }
 
 
-    fun calculate(
+    private fun calculate(
         leftSide: String,
         operationSing: String,
         rightSide: String
@@ -155,6 +157,7 @@ class DataProcessing {
             } else {
                 result.toInt().toString().take(12)
             }
+
         }
         tvInputRefresh()
     }
