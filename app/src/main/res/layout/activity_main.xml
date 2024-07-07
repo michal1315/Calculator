@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="MainActivity">
-    <include layout="@layout/main_toolbar"/>
 
+    <include layout="@layout/main_toolbar" />
 
 
     <LinearLayout
@@ -22,6 +22,13 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:text=""
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
             android:textSize="36sp" />
 
     </LinearLayout>

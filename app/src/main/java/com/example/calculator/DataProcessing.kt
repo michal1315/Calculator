@@ -3,17 +3,58 @@ package com.example.calculator
 
 class DataProcessing {
 
-    var tvString = ""
+    var tvInputString = ""
+    var tvResultString = ""
     var leftSide = ""
     var rightSide = ""
     var operationSing = ""
-    private var leftSideStart = true
-    private var rightSideStart = false
+    private var typingLeftSide = true
+    private var typingRightSide = false
     private var toPreviousResult = false
 
 
-    private fun tvRefresh() {
-        tvString = leftSide + operationSing + rightSide
+    private fun tvInputRefresh() {
+        tvInputString = leftSide + operationSing + rightSide
+    }
+
+    private fun clear() {
+        tvInputString = ""
+        tvResultString = ""
+        leftSide = ""
+        rightSide = ""
+        operationSing = ""
+        typingLeftSide = true
+        typingRightSide = false
+        toPreviousResult = false
+    }
+
+    fun toInitState() {
+        toPreviousResult = true
+        typingRightSide = false
+        tvInputString = tvResultString
+        this.leftSide = tvResultString
+        this.rightSide = ""
+        this.operationSing = ""
+
+    }
+
+    fun delete() {
+        if (leftSide.isNotEmpty() && operationSing.isEmpty() && !toPreviousResult) {
+            leftSide = leftSide.dropLast(1)
+            tvInputRefresh()
+        }
+        if (operationSing.isNotEmpty() && rightSide.isEmpty()) {
+            operationSing = operationSing.dropLast(1)
+            typingLeftSide = true
+            typingRightSide = false
+            tvInputRefresh()
+        }
+        if (rightSide.isNotEmpty()) {
+            rightSide = rightSide.dropLast(1)
+            tvInputRefresh()
+        }
+
+
     }
 
     fun inputSanitizer(char: String) {
@@ -23,17 +64,17 @@ class DataProcessing {
                     leftSide.isNotEmpty() &&
                     !leftSide.endsWith(".")
                 ) {
-                    leftSideStart = false
-                    rightSideStart = true
+                    typingLeftSide = false
+                    typingRightSide = true
                     operationSing += char
                 }
             }
 
             in "1234567890" -> {
-                if (leftSideStart) {
+                if (typingLeftSide) {
                     leftSide += char
                 }
-                if (rightSideStart) {
+                if (typingRightSide) {
                     rightSide += char
                 }
             }
@@ -53,8 +94,22 @@ class DataProcessing {
                     rightSide += char
                 }
             }
+
+            in "C" -> {
+                clear()
+            }
+
+            in "DEL" -> {
+                delete()
+            }
+
+            in "=" -> {
+                clear()
+            }
         }
-        tvRefresh()
+
+        calculate(leftSide, operationSing, rightSide)
+
 
         //println("$firstPartString  $algebraSign  $secondPartString")
 
@@ -62,81 +117,47 @@ class DataProcessing {
 
 
     fun calculate(
-        firstPart: String,
-        algebraSing: String,
-        secondPart: String
+        leftSide: String,
+        operationSing: String,
+        rightSide: String
     ) {
-        if (leftSide.isNotEmpty() &&
-            operationSing.isNotEmpty() &&
-            rightSide.isNotEmpty() &&
-            !rightSide.endsWith(".")
+        if (this.leftSide.isNotEmpty() &&
+            this.operationSing.isNotEmpty() &&
+            this.rightSide.isNotEmpty() &&
+            !this.rightSide.endsWith(".")
         ) {
             var result = 0.0
-            when (algebraSing) {
+            when (operationSing) {
                 in "-" -> {
                     result =
-                        (firstPart.toDouble() - secondPart.toDouble())
+                        (leftSide.toDouble() - rightSide.toDouble())
                 }
 
                 in "+" -> {
                     result =
-                        (firstPart.toDouble() + secondPart.toDouble())
+                        (leftSide.toDouble() + rightSide.toDouble())
                 }
 
                 in "*" -> {
                     result =
-                        (firstPart.toDouble() * secondPart.toDouble())
+                        (leftSide.toDouble() * rightSide.toDouble())
                 }
 
                 in "/" -> {
                     result =
-                        (firstPart.toDouble() / secondPart.toDouble())
+                        (leftSide.toDouble() / rightSide.toDouble())
                 }
+
+
             }
-            val resultString: String = if (result % 1 != 0.0) {
+            tvResultString = if (result % 1 != 0.0) {
                 result.toString().take(12)
             } else {
                 result.toInt().toString().take(12)
             }
-
-            toPreviousResult = true
-            rightSideStart = false
-            tvString = resultString
-            leftSide = resultString
-            rightSide = ""
-            operationSing = ""
-
-
         }
+        tvInputRefresh()
     }
 
 
-    fun delete() {
-        if (leftSide.isNotEmpty() && operationSing.isEmpty() && !toPreviousResult) {
-            leftSide = leftSide.dropLast(1)
-            tvRefresh()
-        }
-        if (operationSing.isNotEmpty() && rightSide.isEmpty()) {
-            operationSing = operationSing.dropLast(1)
-            leftSideStart = true
-            rightSideStart = false
-            tvRefresh()
-        }
-        if (rightSide.isNotEmpty()) {
-            rightSide = rightSide.dropLast(1)
-            tvRefresh()
-        }
-
-
-    }
-
-    fun clear() {
-        tvString = ""
-        leftSide = ""
-        rightSide = ""
-        operationSing = ""
-        leftSideStart = true
-        rightSideStart = false
-        toPreviousResult = false
-    }
 }
