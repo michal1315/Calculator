@@ -22,13 +22,17 @@ class DataProcessing {
         } else if (leftSide.isNotEmpty() && rightSide.isEmpty()) {
             tvResultString = "= $leftSide"
         } else {
-            tvResultString = if (result % 1 != 0.0) {
-                result.toString().take(12)
-            } else {
-                result.toInt().toString().take(12)
-            }
-            tvResultString = "= $tvResultString"
+            tvResultString = "= ${resultConverter()}"
         }
+    }
+
+    private fun resultConverter(): String {
+        tvResultString = if (result % 1 != 0.0) {
+            result.toString().take(12)
+        } else {
+            result.toInt().toString().take(12)
+        }
+        return tvResultString
     }
 
     private fun clear() {
@@ -109,7 +113,7 @@ class DataProcessing {
             }
 
             in "=" -> {
-                clear()
+
             }
         }
 
