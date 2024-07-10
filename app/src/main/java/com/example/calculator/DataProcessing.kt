@@ -11,7 +11,6 @@ class DataProcessing {
     private var operationSing = ""
     private var typingLeftSide = true
     private var typingRightSide = false
-    private var toPreviousResult = false
 
     private fun tvInputRefresh() {
         tvInputString = leftSide + operationSing + rightSide
@@ -40,21 +39,10 @@ class DataProcessing {
         operationSing = ""
         typingLeftSide = true
         typingRightSide = false
-        toPreviousResult = false
-    }
-
-    fun toInitState() {
-        toPreviousResult = true
-        typingRightSide = false
-        tvInputString = tvResultString
-        this.leftSide = tvResultString
-        this.rightSide = ""
-        this.operationSing = ""
-
     }
 
     private fun delete() {
-        if (leftSide.isNotEmpty() && operationSing.isEmpty() && !toPreviousResult) {
+        if (leftSide.isNotEmpty() && operationSing.isEmpty()) {
             leftSide = leftSide.dropLast(1)
             tvInputRefresh()
         }
