@@ -45,6 +45,7 @@ class DataProcessing {
         rightSide = ""
         typingLeftSide = true
         typingRightSide = false
+        toPreviousResult = false
     }
 
     private fun delete() {
@@ -70,7 +71,6 @@ class DataProcessing {
     }
 
     fun equals() {
-        toPreviousResult = true
         tvInputString = ""
         tvResultString = ""
         leftSide = resultConverter()
@@ -78,6 +78,7 @@ class DataProcessing {
         rightSide = ""
         typingLeftSide = false
         typingRightSide = false
+        toPreviousResult = true
     }
 
     fun inputSanitizer(char: String) {
