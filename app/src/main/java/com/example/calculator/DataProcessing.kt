@@ -13,18 +13,23 @@ class DataProcessing {
     private var typingRightSide = false
     private var toPreviousResult = false
 
-
     private fun tvInputRefresh() {
         tvInputString = leftSide + operationSing + rightSide
     }
 
     private fun tvResultRefresh() {
-        tvResultString = if (result % 1 != 0.0) {
-            result.toString().take(12)
+        if (leftSide.isEmpty() && rightSide.isEmpty()) {
+            tvResultString = ""
+        } else if (leftSide.isNotEmpty() && rightSide.isEmpty()) {
+            tvResultString = "= $leftSide"
         } else {
-            result.toInt().toString().take(12)
+            tvResultString = if (result % 1 != 0.0) {
+                result.toString().take(12)
+            } else {
+                result.toInt().toString().take(12)
+            }
+            tvResultString = "= $tvResultString"
         }
-        tvResultString = "= $tvResultString"
     }
 
     private fun clear() {
@@ -53,6 +58,7 @@ class DataProcessing {
             leftSide = leftSide.dropLast(1)
             tvInputRefresh()
         }
+
         if (operationSing.isNotEmpty() && rightSide.isEmpty()) {
             operationSing = operationSing.dropLast(1)
             typingLeftSide = true
@@ -63,8 +69,7 @@ class DataProcessing {
             rightSide = rightSide.dropLast(1)
             tvInputRefresh()
         }
-
-
+        calculate(leftSide, operationSing, rightSide)
     }
 
     fun inputSanitizer(char: String) {
@@ -127,17 +132,14 @@ class DataProcessing {
 
     }
 
-
     private fun calculate(
         leftSide: String,
         operationSing: String,
         rightSide: String
     ) {
-
         if (this.leftSide.isNotEmpty() &&
             this.operationSing.isNotEmpty() &&
-            this.rightSide.isNotEmpty() &&
-            !this.rightSide.endsWith(".")
+            this.rightSide.isNotEmpty()
         ) {
             when (operationSing) {
                 in "-" -> {
@@ -159,11 +161,10 @@ class DataProcessing {
                     result =
                         (leftSide.toDouble() / rightSide.toDouble())
                 }
-
             }
-            tvResultRefresh()
         }
         tvInputRefresh()
+        tvResultRefresh()
     }
 
 
