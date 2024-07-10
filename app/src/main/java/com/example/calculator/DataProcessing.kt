@@ -11,6 +11,7 @@ class DataProcessing {
     private var operationSing = ""
     private var typingLeftSide = true
     private var typingRightSide = false
+    private var toPreviousResult = false
 
     private fun tvInputRefresh() {
         tvInputString = leftSide + operationSing + rightSide
@@ -36,17 +37,21 @@ class DataProcessing {
     }
 
     private fun clear() {
+        result = 0.0
         tvInputString = ""
         tvResultString = ""
         leftSide = ""
-        rightSide = ""
         operationSing = ""
+        rightSide = ""
         typingLeftSide = true
         typingRightSide = false
     }
 
     private fun delete() {
-        if (leftSide.isNotEmpty() && operationSing.isEmpty()) {
+        if (leftSide.isNotEmpty() &&
+            operationSing.isEmpty() &&
+            !toPreviousResult
+        ) {
             leftSide = leftSide.dropLast(1)
             tvInputRefresh()
         }
@@ -62,6 +67,17 @@ class DataProcessing {
             tvInputRefresh()
         }
         calculate(leftSide, operationSing, rightSide)
+    }
+
+    fun equals() {
+        toPreviousResult = true
+        tvInputString = ""
+        tvResultString = ""
+        leftSide = resultConverter()
+        operationSing = ""
+        rightSide = ""
+        typingLeftSide = false
+        typingRightSide = false
     }
 
     fun inputSanitizer(char: String) {
@@ -113,7 +129,9 @@ class DataProcessing {
             }
 
             in "=" -> {
-
+                if (rightSide.isNotEmpty()) {
+                    equals()
+                }
             }
         }
 
