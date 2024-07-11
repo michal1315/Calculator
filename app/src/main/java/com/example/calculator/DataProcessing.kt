@@ -95,7 +95,9 @@ class DataProcessing {
             }
 
             in "1234567890" -> {
-                if (typingLeftSide) {
+                if (typingLeftSide &&
+                    !toPreviousResult
+                ) {
                     leftSide += char
                 }
                 if (typingRightSide) {
