@@ -8,13 +8,13 @@ class DataProcessing {
     var tvResultString = ""
     private var leftSide = ""
     private var rightSide = ""
-    private var operationSing = ""
+    private var operationSign = ""
     private var typingLeftSide = true
     private var typingRightSide = false
     private var toPreviousResult = false
 
     private fun tvInputRefresh() {
-        tvInputString = leftSide + operationSing + rightSide
+        tvInputString = leftSide + operationSign + rightSide
     }
 
     private fun tvResultRefresh() {
@@ -41,7 +41,7 @@ class DataProcessing {
         tvInputString = ""
         tvResultString = ""
         leftSide = ""
-        operationSing = ""
+        operationSign = ""
         rightSide = ""
         typingLeftSide = true
         typingRightSide = false
@@ -50,15 +50,15 @@ class DataProcessing {
 
     private fun delete() {
         if (leftSide.isNotEmpty() &&
-            operationSing.isEmpty() &&
+            operationSign.isEmpty() &&
             !toPreviousResult
         ) {
             leftSide = leftSide.dropLast(1)
             tvInputRefresh()
         }
 
-        if (operationSing.isNotEmpty() && rightSide.isEmpty()) {
-            operationSing = operationSing.dropLast(1)
+        if (operationSign.isNotEmpty() && rightSide.isEmpty()) {
+            operationSign = operationSign.dropLast(1)
             typingLeftSide = true
             typingRightSide = false
             tvInputRefresh()
@@ -67,14 +67,14 @@ class DataProcessing {
             rightSide = rightSide.dropLast(1)
             tvInputRefresh()
         }
-        calculate(leftSide, operationSing, rightSide)
+        calculate(leftSide, operationSign, rightSide)
     }
 
     fun equals() {
         tvInputString = ""
         tvResultString = ""
         leftSide = resultConverter()
-        operationSing = ""
+        operationSign = ""
         rightSide = ""
         typingLeftSide = false
         typingRightSide = false
@@ -84,13 +84,13 @@ class DataProcessing {
     fun inputSanitizer(char: String) {
         when (char) {
             in "-+*/" -> {
-                if (operationSing.isEmpty() &&
+                if (operationSign.isEmpty() &&
                     leftSide.isNotEmpty() &&
                     !leftSide.endsWith(".")
                 ) {
                     typingLeftSide = false
                     typingRightSide = true
-                    operationSing += char
+                    operationSign += char
                 }
             }
 
@@ -109,7 +109,8 @@ class DataProcessing {
                 if (!leftSide.contains('.') &&
                     !leftSide.endsWith('.') &&
                     leftSide.isNotEmpty() &&
-                    typingLeftSide
+                    typingLeftSide &&
+                    !toPreviousResult
                 ) {
                     leftSide += char
                 }
@@ -138,23 +139,20 @@ class DataProcessing {
             }
         }
 
-        calculate(leftSide, operationSing, rightSide)
-
-
-        //println("$firstPartString  $algebraSign  $secondPartString")
-
+        calculate(leftSide, operationSign, rightSide)
     }
 
     private fun calculate(
         leftSide: String,
-        operationSing: String,
+        operationSign: String,
         rightSide: String
     ) {
         if (this.leftSide.isNotEmpty() &&
-            this.operationSing.isNotEmpty() &&
+            this.operationSign.isNotEmpty() &&
             this.rightSide.isNotEmpty()
         ) {
-            when (operationSing) {
+            //https://ambinate.bandcamp.com/track/ellipsis
+            when (operationSign) {
                 in "-" -> {
                     result =
                         (leftSide.toDouble() - rightSide.toDouble())
@@ -179,6 +177,4 @@ class DataProcessing {
         tvInputRefresh()
         tvResultRefresh()
     }
-
-
 }
